@@ -1,4 +1,4 @@
-package io.github.zeleven.lemon;
+package io.github.zeleven.lemon.entities;
 
 import javax.persistence.*;
 import java.util.Set;
