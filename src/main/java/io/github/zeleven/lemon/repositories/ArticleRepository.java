@@ -1,4 +1,7 @@
 package io.github.zeleven.lemon.repositories;
 
-public interface ArticleRepository {
+import io.github.zeleven.lemon.Article;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ArticleRepository extends CrudRepository<Article, Long> {
 }
