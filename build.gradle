@@ -18,10 +18,15 @@ group = 'io.github.zeleven'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
+//repositories {
+//    mavenCentral()
+//}
 
+allprojects {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+}
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
@@ -31,4 +36,5 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-devtools'
     compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'mysql:mysql-connector-java'
 }
