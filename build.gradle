@@ -37,4 +37,6 @@ dependencies {
     compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'mysql:mysql-connector-java'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    testCompile 'org.springframework.security:spring-security-test'
 }
