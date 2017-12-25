@@ -22,6 +22,7 @@ public class MarkdownParser {
     public static MutableDataSet configOptions() {
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.HEADING_NO_ATX_SPACE, true)
+                .set(HtmlRenderer.RENDER_HEADER_ID, true)
                 .set(Parser.EXTENSIONS, Arrays.asList(
                         AbbreviationExtension.create(),
                         AsideExtension.create(),
