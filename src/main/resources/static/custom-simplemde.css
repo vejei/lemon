@@ -1,0 +1,18 @@
+.editor-toolbar {
+    border: none;
+    border-radius: unset;
+    background-color: #fff;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    padding: 0;
+}
+.editor-toolbar:hover {
+    background-color: #fff;
+}
+.editor-toolbar a {
+    margin-left: 15px;
+}
+.CodeMirror {
+    border: none;
+    height: calc(100% - 150px);
+}
