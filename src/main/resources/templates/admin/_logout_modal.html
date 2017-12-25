@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<div class="modal is-small" id="logout-modal" th:fragment="logout-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <section class="modal-card-body">
+            <P>确定要退出吗？</P>
+        </section>
+        <footer class="modal-card-foot buttons is-right">
+            <button class="button is-white" id="modal-close-button">取消</button>
+            <form th:action="@{/logout}" method="post">
+                <button class="button is-success" type="submit">确定</button>
+            </form>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

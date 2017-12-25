@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<div class="sidebar" th:fragment="sidebar">
+    <a th:href="@{/admin}"><img class="sidebar-logo" th:src="@{/logo.png}" alt="logo"/></a>
+    <nav class="aside-nav">
+        <ul class="aside-nav-list">
+            <li class="aside-nav-item">
+                <a class="aside-nav-button" th:href="@{/admin/article}"><i class="fa fa-book" aria-hidden="true"></i></a>
+            </li>
+            <li class="aside-nav-item">
+                <a class="aside-nav-button" th:href="@{/admin/tag}"><i class="fa fa-tags" aria-hidden="true"></i></a> 
+                </li>
+            <li class="aside-nav-item">
+                <a class="aside-nav-button"><i class="fa fa-user" aria-hidden="true"></i></a> 
+            </li>
+        </ul>
+    </nav>
+    <nav class="aside-menu">
+        <ul class="aside-nav-list">
+            <li class="aside-nav-item">
+                <button class="aside-nav-button" id="logout-button" data-target="modal"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
