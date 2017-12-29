@@ -42,4 +42,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-mail'
     compile 'com.nulab-inc:zxcvbn:1.2.3'
     compile 'com.vladsch.flexmark:flexmark-all:0.28.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
 }
