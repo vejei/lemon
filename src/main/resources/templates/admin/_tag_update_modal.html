@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<div class="modal" id="tag-update" th:fragment="tag-update-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">添加标签</p>
+            <button class="tag-modal-close delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <form th:action="@{/admin/tag/update}" method="post" id="tag-update-form">
+                <input type="hidden" name="id" value="" />
+                <input class="input" type="text" placeholder="输入标签名称" name="name" />
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" id="update-submit">保存</button>
+            <button class="button" id="update-form-close">取消</button>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

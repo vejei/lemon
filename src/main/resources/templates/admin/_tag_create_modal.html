@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<div class="modal" id="tag-create" th:fragment="tag-create-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">添加标签</p>
+            <button class="tag-modal-close delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <form th:action="@{/admin/tag/create}" method="post" id="tag-create-form">
+                <input class="input" type="text" placeholder="输入标签名称" name="name" />
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" id="create-submit">保存</button>
+            <button class="button" id="create-form-close">取消</button>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
