@@ -24,23 +24,41 @@ var simplemde = new SimpleMDE({
         className: "fa fa-question-circle",
         title: "Markdown Guide"
     }],
+    previewRender: function(plainText) {
+        return "<div class='markdown-body'>" + markedParser(plainText) + "</div>";
+    },
 });
-// add class for editor preview area
-$(document).ready(function() {
-    $(".editor-preview-side").addClass("markdown-body");
-});
+function markedParser(plainText) {
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+        }
+    });
+    return marked(plainText);
+}
 
 // list item click
 $("#article-list .list-item").click(function() {
     $("#article-list .list-item[class~='active']").removeClass("active");
     $(this).addClass("active");
     var aid = $(this).find("input[name='aid']").val();
+    var index = $(this).find("input[name='index']").val();
     var title = $(this).find(".article-title").text();
     var content = $(this).find("p.article-excerpt").text();
     // console.log(aid);
     $("input[name='aid_input']").val(aid);
+    $("input[name='aindex']").val(index);
     $("input.title-input").val(title);
     simplemde.value(content);
+    $(".editor-preview.editor-preview-active").removeClass("editor-preview-active");
 });
 $(document).ready(function() {
     var item = $("#article-list .list-item:first-child");
@@ -68,7 +86,8 @@ $("#update-btn").click(function() {
         "title": $("input.title-input").val(),
         "content": simplemde.value()
     }
-    console.log(data['aid']);
+    data.tags = $("select[name='states[]']").val();
+    console.log(data['tags']);
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -80,6 +99,9 @@ $("#update-btn").click(function() {
             console.log(msg)
             $(".writting-area .notification .msg-content").text(msg);
             $(".writting-area .notification").show().delay(2000).fadeOut('fast');
+            var parent = $("input[value='" + data.id + "']").parent();
+            parent.find("h2.article-title").text(data.title);
+            parent.find("p.article-excerpt").text(data.content);
         },
         error: function(e) {
 
@@ -91,5 +113,6 @@ $("#update-btn").click(function() {
 $(document).ready(function() {
     $("#tags-box").select2({
         placeholder: "在这里选择标签",
+        maximumSelectionLength: 5,
     });
 });
