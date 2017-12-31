@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>About - Lemon Blog</title>
+    <style type="text/css">
+        #about-content {
+            background-color: #fff;
+            /*padding: 10px 20px;*/
+            height: 100%;
+        }
+        .header {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            border-bottom: 1px solid #f6f6f6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .content-text {
+            padding: 20px;
+        }
+        .content-block {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="left">
+    <div id="about-content">
+        <h1 class="header">关于本站</h1>
+        <div class="content-text">
+            <p>沒甚麽好說的</p>
+            <p>Spring boot + Thymeleaf构造的博客程序，第一個Spring Boot程序</p>
+            <p>代码：<a href=""></a></p>
+        </div>
+        <h1 class="header">关于作者</h1>
+        <div class="content-text">
+            <p>沒甚麽好說的</p>
+            <p>作者个人網站：<a href="https://zeleven.github.io/">My Blog</a>（沒甚麽好看的）</p>
+            <p>详细信息请看右邊（也沒甚麽好看的）</p>
+        </div>
+    </div>
+</div>
+<div layout:fragment="right">
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>作者相关信息</span>
+            </div>
+        </div>
+        <div class="content-block">
+            <p>GitHub: <a href="https://github.com/zeleven">https://github.com/zeleven</a></p>
+            <p>知乎：<a href="https://www.zhihu.com/people/zheng-zheng-shu-36/activities">我的知乎主页</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
