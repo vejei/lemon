@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Code - Lemon Blog</title>
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+</head>
+<body>
+<div layout:fragment="left">
+    <ul class="repo-list">
+        <li class="item-box" th:each="repo : ${githubRepos}">
+            <div class="repo-content">
+                <a class="repo-header" th:href="${repo.getHtml_url()}" target="_blank"><h2 th:text="${repo.getFull_name()}">Repository's name</h2></a>
+                <div class="repo-desc" th:text="${repo.getDescription()}">Repository's description</div>
+                <div class="repo-meta" th:inline="text">
+                    <span class="lang" th:if="${repo.getLanguage()}">[[${repo.getLanguage()}]]</span>
+                    <span class="lang" th:unless="${repo.getLanguage()}">Unknow</span>
+                    <span class="star">
+                        <i class="icon ion-android-star"></i>
+                        [[${repo.getStargazers_count()}]]
+                    </span>
+                    <span class="fork">
+                        <i class="icon ion-fork-repo"></i>
+                        [[${repo.getForks_count()}]]
+                    </span>
+                    <span class="time">[[${repo.getUpdated_at()}]]</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div layout:fragment="right">
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>My GitHub</span>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="info-list">
+                <a href="http://github.com/zeleven" target="_blank">http://github.com/zeleven</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>My Gist</span>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="info-list">
+                <a href="https://gist.github.com/zeleven" target="_blank">https://gist.github.com/zeleven</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
