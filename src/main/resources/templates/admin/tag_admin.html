@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lemon.css}"/>
+    <style type="text/css">
+        html {
+            overflow: hidden;
+        }
+        .dropdown {
+            float: right;
+        }
+        #tag-action-menu {
+            min-width: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-with-aside">
+    <div th:replace="admin/_sidebar::sidebar"></div>
+    
+    <div class="middle-column">
+        <div class="column-header">
+            <button id="tag-create-btn" class="header-action create" type="submit">新建</button>
+        </div>
+        
+        <ul id="article-list">
+            <li class="list-item" th:each="tag : ${tags}">
+                <h2 class="tag-name" th:text="${tag.getName()}">标签名称</h2>
+                <p class="statistics-info">共 <span th:text="${tag.getArticles().size()}">10</span> 篇文章</p>
+                <span class="foot">创建于 <span class="create-time" th:text="${#dates.format(tag.getCreateTime(), 'yyyy-MM-dd HH:mm:ss')}">2017-12-22 11:51:30</span></span>
+
+                <div class="dropdown is-right">
+                    <div class="dropdown-trigger">
+                        <span class="tag-edit" aria-haspopup="true" aria-controls="tag-action-menu"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="dropdown-menu" id="tag-action-menu" role="menu">
+                        <div class="dropdown-content">
+                            <a class="dropdown-item update-action">编辑</a>
+                            <form th:action="@{/admin/tag/delete}" method="post">
+                                <input type="hidden" name="tid" th:value="${tag.getId()}" />
+                                <a class="dropdown-item delete-action" href="javascript:;">删除</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:replace="admin/_logout_modal::logout-modal"></div>
+<div th:replace="admin/_tag_create_modal::tag-create-modal"></div>
+<div th:replace="admin/_tag_update_modal::tag-update-modal"></div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/lemon.js}"></script>
+<script type="text/javascript">
+    // 新建表单
+    $("#tag-create-btn").click(function() {
+        $("#tag-create").addClass("is-active");
+    });
+    $(".tag-modal-close, #create-form-close").click(function() {
+        $("#tag-create").removeClass("is-active");
+    });
+    $("#create-submit").click(function() {
+        $("#tag-create-form").submit();
+    });
+    // 打开下拉菜单
+    $(".dropdown .tag-edit").click(function() {
+        if ($(this).parents(".dropdown").hasClass("is-active")) {
+            $(this).parents(".dropdown").removeClass("is-active");
+        } else {
+            $(this).parents(".dropdown").addClass("is-active");
+        }
+    });
+    // 删除
+    $(".delete-action").click(function() {
+        $(this).parents("form").submit();
+    });
+    // 更新表单
+    $(".dropdown .dropdown-item.update-action").click(function() {
+        $("#tag-update").addClass("is-active");
+        var tagId = $(this).parent().find("input[name='tid']").val();
+        var tagName = $(this).parents(".list-item").find("h2.tag-name").text();
+        $("#tag-update-form input[name='id']").val(tagId);
+        $("#tag-update-form input[name='name']").val(tagName);
+    });
+    $(".tag-modal-close, #update-form-close").click(function() {
+        $("#tag-update").removeClass("is-active");
+    });
+    $("#update-submit").click(function() {
+        $("#tag-update-form").submit();
+    });
+</script>
+</body>
+</html>
