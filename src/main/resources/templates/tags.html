@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tags - Lemon Blog</title>
+    <style type="text/css">
+        .content-block {
+            padding: 15px;
+        }
+        #left-column {
+            background-color: #fff;
+        }
+        .header {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            border-bottom: 1px solid #f6f6f6;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #tags-list {
+            padding: 20px;
+        }
+        #tags-list li {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="left">
+    <h1 class="header">所有标签</h1>
+    <ul id="tags-list">
+        <li class="custom-tag" th:each="tag : ${tags}" th:text="${tag.getName()}"></li>
+    </ul>
+</div>
+<div layout:fragment="right">
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>统计信息</span>
+            </div>
+        </div>
+        <div class="content-block">
+            <span th:inline="text">共 [[${tagsCount}]] 个标签</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
