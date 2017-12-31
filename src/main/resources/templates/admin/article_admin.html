@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Admin - Lemon Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/custom-simplemde.css}"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.9.0/github-markdown.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lemon.css}"/>
+    <style type="text/css">
+        html {
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container-with-aside">
+    <div th:replace="admin/_sidebar::sidebar"></div>
+    
+    <div class="middle-column">
+        <div class="column-header">
+            <form th:action="@{/admin/article/write}" method="post">
+                <button class="header-action create" type="submit">新建</button>
+            </form>
+        </div>
+        
+        <ul id="article-list">
+            <li class="list-item" th:each="article, iter : ${articles}">
+                <input type="hidden" name="aid" th:value="${article.getId()}" />
+                <input type="hidden" name="index" th:value="${iter.index}"/>
+                <h2 class="article-title" th:text="${article.getTitle()}">文章标题</h2>
+                <p class="article-excerpt" th:text="${article.getContent()}">这里是文章摘要？</p>
+                <span class="create-time" th:text="${#dates.format(article.getCreateTime(), 'yyyy-MM-dd HH:mm:ss')}">2017-12-22 11:51:30</span>
+            </li>
+        </ul>
+    </div>
+    <div class="writting-area">
+        <div class="notification is-primary" style="display: none;">
+            <p class="msg-content">这里是提示消息</p>
+        </div>
+        <input type="text" name="title" placeholder="文章标题" autocomplete="off" class="title-input" />
+        <input type="hidden" name="aindex" value=""/>
+        <div class="level area-columns">
+            <div class="level-left">
+                <span class="tag-icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+                <select id="tags-box" name="states[]" multiple="multiple" th:inline="text">
+                    <option th:each="tag : ${tags}" th:value="${tag.getId()}">[[${tag.getName()}]]</option>
+                </select>
+            </div>
+            <div class="level-right">
+                <form th:action="@{/admin/article/delete}" method="post">
+                    <input type="hidden" name="aid_input" value="" />
+                    <button class="button" id="delete-btn" type="submit">删除文章</button>
+                </form>
+                <button class="button is-success" id="update-btn">更新文章</button>
+            </div>
+        </div>
+        <textarea id="article-editor"></textarea>
+    </div>
+</div>
+<div th:replace="admin/_logout_modal::logout-modal"></div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.9/marked.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript" th:src="@{/lemon.js}"></script>
+</body>
+</html>
