@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Lemon Blog</title>
 </head>
 <body>
+<div layout:fragment="left">
+    <div id="content-box" class="home-content">
+        <div class="item-box" th:each="article : ${articles}">
+            <div class="item-row meta">
+                <span class="time" th:text="${article.getCreateTime()}">2小时前</span>
+                <span class="tag is-rounded" th:each="tag : ${article.getTags()}" th:inline="text">
+                    [[${tag.getName()}]]
+                </span>
+            </div>
+            <div class="item-row article-title">
+                <a th:href="@{'/article/' + ${article.getId()}}" th:text="${article.getTitle()}">文章标题</a>
+            </div>
+            <div class="item-row article-content" th:utext="${article.getContentHtml()}">
+                <p>文章摘要</p>
+            </div>
+        </div>
+    </div>
 
+    <nav class="pagination" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" title="This is the first page" th:disabled="${not page.hasPrevious()}" th:href="${page.hasPrevious()} ? '?page=' + ${ page.previousPageable().getPageNumber()} : 'javascript:;'">Previous</a>
+        <a class="pagination-next" th:disabled="${not page.hasNext()}" th:href="${page.hasNext()} ? '?page=' + ${page.nextPageable().getPageNumber()} : 'javascript:;'">Next page</a>
+        <ul class="pagination-list">
+            <li th:each="pageNum : ${#numbers.sequence(0, pageCount - 1)}" th:inline="text">
+                <a class="pagination-link is-current" th:class="${pageable.getPageNumber() eq pageNum} ? 'pagination-link is-current' : 'pagination-link'" aria-current="page" th:href="'?page=' + ${pageNum}">[[${pageNum} + 1]]</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div layout:fragment="right">
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>关于本站</span>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="info-list">
+                <p>Spring boot + Thymeleaf构建的个人博客</p>
+                <p>源码：<a href="" target="_blank"></a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-block">
+        <div class="header">
+            <div class="block-title">
+                <span>标签</span>
+            </div>
+            <div class="right">
+                <a th:href="@{/tags}">查看全部</a>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="tag-list">
+                <a href="" th:each="tag : ${tags}" th:inline="text" class="custom-tag">
+                    [[${tag.getName()}]]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
