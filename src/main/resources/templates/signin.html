@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign in - Lemon Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lemon.css}"/>
+    <style type="text/css">
+        .column {
+            margin: auto;
+        }
+        .notification {
+            margin-bottom: 25px;
+        }
+        form button[type="submit"] {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="column is-one-third">
+    <div th:if="${param.error}">
+        <div class="notification is-warning">
+            Invalid username and password.
+        </div>
+    </div>
+    <div th:if="${param.logout}">
+        <div class="notification is-warning">
+            You have been logged out.
+        </div>
+    </div>
+    <div class="box">
+        <form th:action="@{/signin}" method="post">
+            <div class="field">
+                <label class="label">邮箱</label>
+                <p class="control has-icons-left">
+                    <input class="input" type="email" name="username" placeholder="输入邮箱"/>
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <label class="label">密码</label>
+                <p class="control has-icons-left">
+                    <input class="input" type="password" name="password" placeholder="输入密码"/>
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button class="button is-success" type="submit">登录</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
