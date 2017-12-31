@@ -50,17 +50,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
-}
-
-task stage(type: Copy, dependsOn: [clean, build]) {
-    from jar.archivePath
-    into project.rootDir 
-    rename {
-        'app.jar'
-    }
-}
-stage.mustRunAfter(clean)
-
-clean << {
-    project.file('app.jar').delete()
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 }
