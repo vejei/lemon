@@ -1,10 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Lemon Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/lemon.css}"/>
+    <style type="text/css">
+        #site-name {
+            font-family: 'Lobster', cursive;
+            font-size: 32px;
+        }
+    </style>
 </head>
 <body>
+<!--navbar-->
+<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="container" id="navbar-container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/" th:href="@{/}" id="site-name">Lemon</a>
 
+            <div class="navbar-burger burger" id="navbar-collapsed">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="navbar-collapsed">
+            <div class="navbar-start" id="navbar-item-list">
+                <a class="navbar-item" th:href="@{/}">首页</a>
+                <a class="navbar-item" th:href="@{/code}">代码</a>
+                <a class="navbar-item" th:href="@{/tags}">标签</a>
+                <a class="navbar-item" th:href="@{/about}">关于</a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item" id="search">
+                    <div class="control has-icons-right">
+                        <input class="input" type="text" placeholder="Search"/>
+                        <span class="icon is-small is-right"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+
+                <div class="navbar-item" id="user-action" th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a th:href="@{/admin/}">Admin</a>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="logout-btn">退出</button>
+                    </form>
+                </div>
+
+                <div class="navbar-item" id="user-action" th:unless="${#authorization.expression('isAuthenticated()')}">
+                    <a th:href="@{/signin}">登录</a>
+                    <a href="javascript:;">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" id="content-container" layout:fragment="content-container">
+    <div class="columns">
+        <div id="left-column" layout:fragment="left"></div>
+        <div id="right-column" layout:fragment="right"></div>
+    </div>
+</div>
+
+<!-- back to top -->
+<div id="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.0.1/tocbot.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/zh-cn.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript" th:src="@{/lemon.js}"></script>
+<script type="text/javascript">
+    // generate table of content for the markdown content in article detail page
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '#article-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.markdown-body',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+    $(document).ready(function() {
+        $(".home-content .article-content").each(function() {
+            var textContent = $(this).text();
+            excerpt = $(this).text().substring(0, 250);
+            $(this).text(excerpt);
+        });
+
+        moment.lang("zh-cn");
+        $(".time").each(function() {
+            $(this).text(moment($(this).text()).fromNow());
+        });
+    });
+    hljs.initHighlightingOnLoad();
+
+    // back to top
+    if ($('#back-to-top').length) {
+        var scrollTrigger = 200, // px
+            backToTop = function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop > scrollTrigger) {
+                    $('#back-to-top').show();
+                } else {
+                    $('#back-to-top').hide();
+                }
+            };
+        backToTop();
+        $(window).on('scroll', function () {
+            backToTop();
+        });
+        $('#back-to-top').on('click', function (e) {
+            e.preventDefault();
+            $('html,body').animate({
+                scrollTop: 0
+            }, 300);
+        });
+    }
+</script>
 </body>
 </html>
