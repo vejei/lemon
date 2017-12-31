@@ -2,7 +2,7 @@ package io.github.zeleven.lemon.entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "articles")
@@ -15,12 +15,13 @@ public class Article {
     private String content;
     @Column(columnDefinition = "TEXT")
     private String contentHtml;
-    private Date createTime;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Date createTime = new Date();
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "article_tag",
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags;
+    private List<Tag> tags;
+    @Column(nullable = false)
 
     public Integer getId() {
         return id;
@@ -62,11 +63,11 @@ public class Article {
         this.createTime = createTime;
     }
 
-    public Set<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }
