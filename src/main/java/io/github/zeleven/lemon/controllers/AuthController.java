@@ -3,7 +3,6 @@ package io.github.zeleven.lemon.controllers;
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
 import io.github.zeleven.lemon.entities.User;
-import io.github.zeleven.lemon.services.EmailService;
 import io.github.zeleven.lemon.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,8 +23,6 @@ public class AuthController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserService userService;
-    @Autowired
-    private EmailService emailService;
 
     @RequestMapping(value = "/signin")
     public String signin() {
