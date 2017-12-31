@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title th:inline="text">[[${article.getTitle()}]] - Lemon Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.0.1/tocbot.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.9.0/github-markdown.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css"/>
+</head>
+<body>
+<div layout:fragment="left">
+    <div id="article-detail">
+        <h1 class="article-title" th:text="${article.getTitle()}">文章标题</h1>
+        <div class="article-meta">
+            <span class="time" th:text="${article.getCreateTime()}">文章时间</span>
+            <div class="article-tags">
+                <span th:each="tag : ${article.getTags()}" class="tag is-rounded" th:inline="text">
+                    [[${tag.getName()}]]
+                </span>
+            </div>
+        </div>
+        <div class="article-content" th:if="${article.getContentHtml()}">
+            <div th:utext="${article.getContentHtml()}" class="markdown-body">文章内容</div>
+        </div>
+        <div class="article-content" th:unless="${article.getContentHtml()}">
+            <div th:text="${article.getContent()}" class="markdown-body">文章内容</div>
+        </div>
+    </div>
+</div>
+<div layout:fragment="right">
+    <div id="article-toc"></div>
+</div>
+</body>
+</html>
