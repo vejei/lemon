@@ -217,6 +217,10 @@ a, a:hover {
     border-right: 1px solid #ececec;
     box-sizing: border-box;
 }
+#sidebar-logo {
+    font-size: 40px;
+    color: #42b983;
+}
 .aside-nav {
     margin-top: 30px;
 }
