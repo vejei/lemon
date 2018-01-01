@@ -52,3 +52,7 @@ dependencies {
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
 }
+
+task stage {
+    dependsOn build
+}
