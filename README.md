@@ -30,5 +30,7 @@ A Spring boot blog application.
 
 ## Demo
 [Demo](http://lemonblog.herokuapp.com/)
+
 Login email: amdin@test.com
+
 Login password: 123456
