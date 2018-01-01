@@ -20,6 +20,7 @@ sourceCompatibility = 1.8
 
 jar {
     baseName = 'lemon'
+    version = '0.0.1-SNAPSHOT'
 }
 
 //repositories {
@@ -50,5 +51,4 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
-    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 }
